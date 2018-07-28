@@ -14,11 +14,14 @@ class Node(object):
         self.right = right
 
         self.weight = left.weight + right.weight
+        self.height = max(left.height, right.height) + 1
 
     def __repr__(self):
         return '<Node with weight {}>'.format(self.weight)
 
     def __lt__(self, other):
+        if self.weight == other.weight:
+            return self.height < other.height
         return self.weight < other.weight
 
 
@@ -27,6 +30,7 @@ class Leaf(Node):
         self.parent = None
         self.symbol = symbol
         self.weight = weight
+        self.height = 0
 
     def __repr__(self):
         return "<Leaf '{}' with weight {}, code '{}'>".format(self.symbol, self.weight, self.code)
